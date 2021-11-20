@@ -20,6 +20,34 @@ public class Book {
         return id;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public String getEdition() {
+        return edition;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public int getPages() {
+        return pages;
+    }
+
+    public String getCoverImgPath() {
+        return coverImgPath;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
     public void setTitle(String title) {
         this.title = title;
     }

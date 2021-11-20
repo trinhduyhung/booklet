@@ -52,6 +52,8 @@ public class AddBookActivity extends AppCompatActivity {
                 book.setCoverImgPath(coverImage.toString());
                 book.setSummary(summary.getText().toString());
                 bookStore.addBook(book);
+
+                startActivity(new Intent(this, BooksActivity.class));
             }
 
         });

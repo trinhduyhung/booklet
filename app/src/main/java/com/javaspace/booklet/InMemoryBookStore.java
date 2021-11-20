@@ -16,10 +16,18 @@ public class InMemoryBookStore {
         return sInstance;
     }
 
-    private final List<Book> addedBooks = new ArrayList<>();
+    private List<Book> addedBooks = new ArrayList<>();
 
     public void addBook(Book book) {
         addedBooks.add(book);
+    }
+
+    public List<Book> getAddedBooks() {
+        return addedBooks;
+    }
+
+    public boolean isEmpty() {
+        return addedBooks.size() == 0;
     }
 
     @Override
