@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Booklet</string>
+    <string name="title_not_empty">Title cannot be empty</string>
+    <string name="author_not_empty">Author cannot be empty</string>
+    <string name="edition_not_empty">Edition cannot be empty</string>
+    <string name="year_not_empty">Published year cannot be empty</string>
+    <string name="page_not_empty">Pages cannot be empty</string>
+    <string name="summary_not_empty">Summary cannot be empty</string>
+    <string name="cover_not_empty">Image cover must be provided</string>
+    <string name="select_cover_image">Select Cover Image</string>
 </resources>
