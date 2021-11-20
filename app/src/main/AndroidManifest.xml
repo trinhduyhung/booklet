@@ -11,7 +11,7 @@
         android:theme="@style/Theme.Booklet">
 
         <activity
-            android:name=".AddBookActivity"
+            android:name=".BooksActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,9 +20,11 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".AddBookActivity"
+            android:exported="true" />
+
     </application>
-
-
 
 
 </manifest>
