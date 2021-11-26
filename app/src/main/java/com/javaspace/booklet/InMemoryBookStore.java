@@ -22,8 +22,23 @@ public class InMemoryBookStore {
         addedBooks.add(book);
     }
 
+    public void editBook(Book book) {
+        Book foundBook = getBookById(book.getId());
+        foundBook.copy(book);
+    }
+
     public List<Book> getAddedBooks() {
         return addedBooks;
+    }
+
+    public Book getBookById(int bookId) {
+        Book foundBook = null;
+        for (Book book : addedBooks) {
+            if (book.getId() == bookId) {
+                foundBook = book;
+            }
+        }
+        return foundBook;
     }
 
     public boolean isEmpty() {

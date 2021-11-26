@@ -24,6 +24,7 @@ import java.util.List;
 public class BooksActivity extends AppCompatActivity {
 
     private final InMemoryBookStore bookStore = InMemoryBookStore.getInstance();
+    public final static String SELECTED_BOOK_ID = "com.example.booklet.book_id";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +45,9 @@ public class BooksActivity extends AppCompatActivity {
             BookAdapter adapter = new BookAdapter(bookStore.getAddedBooks(), new OnItemClickListener() {
                 @Override
                 public void onClick(int bookId) {
+                    Intent intent = new Intent(BooksActivity.this, BookDetailActivity.class);
+                    intent.putExtra(SELECTED_BOOK_ID, bookId);
+                    startActivity(intent);
                 }
             });
             listBooks.setAdapter(adapter);
@@ -105,6 +109,7 @@ public class BooksActivity extends AppCompatActivity {
             TextView txtTitle;
             TextView txtAuthorEdition;
             TextView txtPublishedYear;
+            TextView txtProgress;
             ImageView imgCover;
             View itemView;
 
@@ -113,6 +118,7 @@ public class BooksActivity extends AppCompatActivity {
                 txtAuthorEdition.setText(String.format("%s, %s", book.getAuthor(), book.getEdition()));
                 txtPublishedYear.setText(String.format("Published in %s", book.getYear()));
                 imgCover.setImageURI(Uri.parse(book.getCoverImgPath()));
+                txtProgress.setText(book.getProgress());
             }
 
             public BookViewHolder(@NonNull View itemView) {
@@ -121,6 +127,7 @@ public class BooksActivity extends AppCompatActivity {
                 txtTitle = itemView.findViewById(R.id.txt_item_title);
                 txtAuthorEdition = itemView.findViewById(R.id.txt_item_author_edition);
                 txtPublishedYear = itemView.findViewById(R.id.txt_item_published_year);
+                txtProgress = itemView.findViewById(R.id.txt_item_progress);
                 imgCover = itemView.findViewById(R.id.img_item_cover);
             }
         }

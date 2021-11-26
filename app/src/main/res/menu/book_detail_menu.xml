@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/start_reading_menu_item"
+        android:icon="@drawable/coffee_maker_white_24dp"
+        android:title="Start Reading"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/pause_reading_menu_item"
+        android:icon="@drawable/soccer_white_24dp"
+        android:title="Pause Reading"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/finish_reading_menu_item"
+        android:icon="@drawable/trophy_variant_white_24dp"
+        android:title="Finish Reading"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/edit_menu_item"
+        android:icon="@drawable/edit_white_24dp"
+        android:title="Edit"
+        app:showAsAction="ifRoom"/>
+
+</menu>
