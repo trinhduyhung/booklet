@@ -1,5 +1,11 @@
 <resources>
     <string name="app_name">Booklet</string>
+
+    <string name="activity_add_book">Add book</string>
+    <string name="activity_books">Books</string>
+    <string name="activity_edit_book">Edit book</string>
+    <string name="activity_book_detail">Detail</string>
+
     <string name="title_not_empty">Title cannot be empty</string>
     <string name="author_not_empty">Author cannot be empty</string>
     <string name="edition_not_empty">Edition cannot be empty</string>

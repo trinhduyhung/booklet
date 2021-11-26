@@ -12,7 +12,8 @@
 
         <activity
             android:name=".BooksActivity"
-            android:exported="true">
+            android:exported="true"
+            android:label="@string/activity_books">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,7 +23,15 @@
 
         <activity
             android:name=".AddBookActivity"
-            android:exported="true" />
+            android:label="@string/activity_add_book" />
+
+        <activity
+            android:name=".BookDetailActivity"
+            android:label="@string/activity_book_detail" />
+
+        <activity
+            android:name=".EditBookActivity"
+            android:label="@string/activity_edit_book" />
 
     </application>
 
