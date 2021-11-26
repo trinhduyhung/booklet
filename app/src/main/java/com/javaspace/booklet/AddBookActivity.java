@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -83,7 +84,7 @@ public class AddBookActivity extends AppCompatActivity {
             summary.setError(getString(R.string.summary_not_empty));
         } else if (coverImage == null) {
             shouldAddBook = false;
-            summary.setError(getString(R.string.cover_not_empty));
+            Toast.makeText(this, getText(R.string.cover_not_empty), Toast.LENGTH_SHORT).show();
         }
         return shouldAddBook;
     }
