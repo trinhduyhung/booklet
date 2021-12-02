@@ -11,7 +11,7 @@ public class Book {
         READING("I am reading"),
         NEVER_STARTED("I have not started yet"),
         PAUSING("I will be back soon"),
-        FINISHED("I have read");
+        FINISHED("I have finished");
 
         String status;
 
@@ -75,6 +75,10 @@ public class Book {
 
     public String getSummary() {
         return summary;
+    }
+
+    public Date getPausedTime() {
+        return pausedTime;
     }
 
     public void setId(int bookId) {

@@ -1,8 +1,11 @@
 package com.javaspace.booklet;
 
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -13,9 +16,20 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.work.ExistingPeriodicWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
+import androidx.work.Worker;
+import androidx.work.WorkerParameters;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 public class BookDetailActivity extends AppCompatActivity {
 
@@ -90,6 +104,7 @@ public class BookDetailActivity extends AppCompatActivity {
             displayStartedTime();
         } else if (item.getItemId() == R.id.pause_reading_menu_item) {
             book.pauseReading();
+            startTracking();
             invalidateOptionsMenu();
             displayReadingStatus();
         } else if (item.getItemId() == R.id.finish_reading_menu_item) {
@@ -123,6 +138,17 @@ public class BookDetailActivity extends AppCompatActivity {
         TextView txtStartedDate = findViewById(R.id.txt_book_finished_date);
         txtStartedDate.setVisibility(View.VISIBLE);
         txtStartedDate.setText(String.format("Finished on %s", startedTime));
+    }
+
+    private void startTracking() {
+        WorkManager wm = WorkManager.getInstance(getApplicationContext());
+
+        PeriodicWorkRequest.Builder builder =
+                new PeriodicWorkRequest.Builder(TrackIdleTimeWorker.class, 15 * 60, TimeUnit.SECONDS);
+
+        PeriodicWorkRequest request = builder.build();
+
+        wm.enqueueUniquePeriodicWork("tracking-idle-time", ExistingPeriodicWorkPolicy.KEEP, request);
     }
 
 }
