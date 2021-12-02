@@ -41,7 +41,11 @@ public class Book {
     private Date finishedTime;      // when did you finish
     private ReadingStatus status = ReadingStatus.NEVER_STARTED;
 
-    public Book() {
+    /**
+     * Should be called after calling Book's constructor and when the In-memory book store is being
+     * used
+     */
+    public void initializeId() {
         id = count++;
     }
 

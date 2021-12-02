@@ -45,6 +45,7 @@ public class AddBookActivity extends AppCompatActivity {
 
             if (shouldAddBook(title, edition, author, year, pages, summary)) {
                 Book book = new Book();
+                book.initializeId();
                 book.setTitle(title.getText().toString());
                 book.setEdition(edition.getText().toString());
                 book.setAuthor(author.getText().toString());
