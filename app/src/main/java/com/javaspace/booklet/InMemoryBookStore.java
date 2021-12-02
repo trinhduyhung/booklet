@@ -2,9 +2,8 @@ package com.javaspace.booklet;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
 
-public class InMemoryBookStore {
+public class InMemoryBookStore implements BookStore {
 
     static InMemoryBookStore sInstance;
 
@@ -19,19 +18,23 @@ public class InMemoryBookStore {
 
     private List<Book> addedBooks = new ArrayList<>();
 
+    @Override
     public void addBook(Book book) {
         addedBooks.add(book);
     }
 
+    @Override
     public void editBook(Book book) {
         Book foundBook = getBookById(book.getId());
         foundBook.copy(book);
     }
 
+    @Override
     public List<Book> getAddedBooks() {
         return addedBooks;
     }
 
+    @Override
     public Book getBookById(int bookId) {
         Book foundBook = null;
         for (Book book : addedBooks) {
@@ -53,6 +56,7 @@ public class InMemoryBookStore {
                 '}';
     }
 
+    @Override
     public void remove(int bookId) {
         int foundId = -1;
         for (int i = 0; i < addedBooks.size(); i++) {

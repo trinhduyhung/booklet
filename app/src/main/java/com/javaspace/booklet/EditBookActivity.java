@@ -17,7 +17,7 @@ public class EditBookActivity extends AppCompatActivity {
 
     public static final int PICK_IMAGE = 1;
     public static final String IMAGE_COVER_KEY = "IMAGE_COVER_KEY";
-    private final InMemoryBookStore bookStore = InMemoryBookStore.getInstance();
+    private final BookStore bookStore = InMemoryBookStore.getInstance();
     private Uri coverImage = null;
     private ImageView imgCover;
 

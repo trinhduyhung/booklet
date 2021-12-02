@@ -25,7 +25,7 @@ public class BookDetailActivity extends AppCompatActivity {
 
     private Book book;
     private int bookId;
-    private InMemoryBookStore bookStore;
+    private BookStore bookStore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
