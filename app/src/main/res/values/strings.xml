@@ -15,5 +15,10 @@
     <string name="cover_not_empty">Image cover must be provided</string>
     <string name="select_cover_image">Select Cover Image</string>
 
-    <string name="start_reading">Start reading now</string>
+    <string name="start_reading">Start reading</string>
+    <string name="pause_reading">Pause Reading</string>
+    <string name="finish_reading">Finish Reading</string>
+    <string name="add">Add</string>
+    <string name="edit">Edit</string>
+    <string name="remove">Remove</string>
 </resources>

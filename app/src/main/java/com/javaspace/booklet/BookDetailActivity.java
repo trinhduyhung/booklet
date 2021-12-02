@@ -1,11 +1,8 @@
 package com.javaspace.booklet;
 
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -16,25 +13,19 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 import androidx.work.ExistingPeriodicWorkPolicy;
-import androidx.work.OneTimeWorkRequest;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
-import androidx.work.Worker;
-import androidx.work.WorkerParameters;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class BookDetailActivity extends AppCompatActivity {
 
-    Book book;
+    private Book book;
     private int bookId;
+    private InMemoryBookStore bookStore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +33,9 @@ public class BookDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_book_detail);
 
         bookId = getIntent().getIntExtra(BooksActivity.SELECTED_BOOK_ID, -1);
+        bookStore = InMemoryBookStore.getInstance();
 
-        book = InMemoryBookStore.getInstance().getBookById(bookId);
+        book = bookStore.getBookById(bookId);
 
         if (bookId == -1) {
             Toast.makeText(this, "Book not found", Toast.LENGTH_LONG).show();
@@ -116,6 +108,9 @@ public class BookDetailActivity extends AppCompatActivity {
             Intent intent = new Intent(BookDetailActivity.this, EditBookActivity.class);
             intent.putExtra(BooksActivity.SELECTED_BOOK_ID, bookId);
             startActivity(intent);
+        } else if (item.getItemId() == R.id.remove_menu_item) {
+            bookStore.remove(bookId);
+            startActivity(new Intent(this, BooksActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }

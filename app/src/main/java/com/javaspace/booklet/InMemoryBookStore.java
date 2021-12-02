@@ -2,6 +2,7 @@ package com.javaspace.booklet;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class InMemoryBookStore {
 
@@ -50,5 +51,18 @@ public class InMemoryBookStore {
         return "BookStore{" +
                 "addedBooks=" + addedBooks +
                 '}';
+    }
+
+    public void remove(int bookId) {
+        int foundId = -1;
+        for (int i = 0; i < addedBooks.size(); i++) {
+            if (addedBooks.get(i).getId() == bookId) {
+                foundId = i;
+                break;
+            }
+        }
+        if (foundId != -1) {
+            addedBooks.remove(foundId);
+        }
     }
 }

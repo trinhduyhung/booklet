@@ -5,25 +5,31 @@
     <item
         android:id="@+id/start_reading_menu_item"
         android:icon="@drawable/coffee_maker_white_24dp"
-        android:title="Start Reading"
+        android:title="@string/start_reading"
         app:showAsAction="always"/>
 
     <item
         android:id="@+id/pause_reading_menu_item"
         android:icon="@drawable/soccer_white_24dp"
-        android:title="Pause Reading"
+        android:title="@string/pause_reading"
         app:showAsAction="always"/>
 
     <item
         android:id="@+id/finish_reading_menu_item"
         android:icon="@drawable/trophy_variant_white_24dp"
-        android:title="Finish Reading"
+        android:title="@string/finish_reading"
         app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/edit_menu_item"
         android:icon="@drawable/edit_white_24dp"
-        android:title="Edit"
+        android:title="@string/edit"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/remove_menu_item"
+        android:icon="@drawable/baseline_delete_white_24dp"
+        android:title="@string/remove"
         app:showAsAction="ifRoom"/>
 
 </menu>
