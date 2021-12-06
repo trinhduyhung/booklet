@@ -31,6 +31,7 @@ public class BooksActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_books);
+        setTitle(R.string.activity_books);
 
         Repository repository = new Repository(getApplication());
         List<Book> books = repository.getAllBooks();
