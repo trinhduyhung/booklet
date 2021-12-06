@@ -17,7 +17,7 @@ public class EditBookActivity extends AppCompatActivity {
 
     public static final int PICK_IMAGE = 1;
     public static final String IMAGE_COVER_KEY = "IMAGE_COVER_KEY";
-    private final BookStore bookStore = InMemoryBookStore.getInstance();
+    private Repository repository;
     private Uri coverImage = null;
     private ImageView imgCover;
 
@@ -32,6 +32,8 @@ public class EditBookActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_book);
+
+        repository = new Repository(getApplication());
 
         title = findViewById(R.id.edt_title);
         edition = findViewById(R.id.edt_edition);
@@ -66,7 +68,7 @@ public class EditBookActivity extends AppCompatActivity {
                 book.setPages(Integer.parseInt(pages.getText().toString()));
                 book.setCoverImgPath(coverImage.toString());
                 book.setSummary(summary.getText().toString());
-                bookStore.editBook(book);
+                repository.editBook(book);
 
                 startActivity(new Intent(this, BooksActivity.class));
             }
@@ -76,7 +78,7 @@ public class EditBookActivity extends AppCompatActivity {
     }
 
     private void fillTheBookDetail(int bookId) {
-        Book book = bookStore.getBookById(bookId);
+        Book book = repository.getBookById(bookId);
         title.setText(book.getTitle());
         edition.setText(book.getEdition());
         author.setText(book.getAuthor());

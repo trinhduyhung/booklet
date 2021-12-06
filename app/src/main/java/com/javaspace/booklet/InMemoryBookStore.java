@@ -3,7 +3,7 @@ package com.javaspace.booklet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InMemoryBookStore implements BookStore {
+public class InMemoryBookStore {
 
     static InMemoryBookStore sInstance;
 
@@ -18,23 +18,23 @@ public class InMemoryBookStore implements BookStore {
 
     private List<Book> addedBooks = new ArrayList<>();
 
-    @Override
+    //@Override
     public void addBook(Book book) {
         addedBooks.add(book);
     }
 
-    @Override
+    //@Override
     public void editBook(Book book) {
         Book foundBook = getBookById(book.getId());
         foundBook.copy(book);
     }
 
-    @Override
+    //@Override
     public List<Book> getAddedBooks() {
         return addedBooks;
     }
 
-    @Override
+    //@Override
     public Book getBookById(int bookId) {
         Book foundBook = null;
         for (Book book : addedBooks) {
@@ -49,14 +49,14 @@ public class InMemoryBookStore implements BookStore {
         return addedBooks.size() == 0;
     }
 
-    @Override
+    //@Override
     public String toString() {
         return "BookStore{" +
                 "addedBooks=" + addedBooks +
                 '}';
     }
 
-    @Override
+    //@Override
     public void remove(int bookId) {
         int foundId = -1;
         for (int i = 0; i < addedBooks.size(); i++) {

@@ -17,6 +17,8 @@ import androidx.work.ExistingPeriodicWorkPolicy;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 
+import com.squareup.picasso.Picasso;
+
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
@@ -25,7 +27,7 @@ public class BookDetailActivity extends AppCompatActivity {
 
     private Book book;
     private int bookId;
-    private BookStore bookStore;
+    private Repository repository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +35,11 @@ public class BookDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_book_detail);
 
         bookId = getIntent().getIntExtra(BooksActivity.SELECTED_BOOK_ID, -1);
-        bookStore = InMemoryBookStore.getInstance();
+        repository = new Repository(getApplication());
 
-        book = bookStore.getBookById(bookId);
+        book = repository.getBookById(bookId);
 
-        if (bookId == -1) {
+        if (bookId == -1 || book == null) {
             Toast.makeText(this, "Book not found", Toast.LENGTH_LONG).show();
         } else {
 
@@ -63,8 +65,9 @@ public class BookDetailActivity extends AppCompatActivity {
                 }
             }
 
-            Uri bookUri = Uri.parse(book.getCoverImgPath());
-            ((ImageView) findViewById(R.id.img_book_cover)).setImageURI(bookUri);
+            ImageView imgCover = ((ImageView) findViewById(R.id.img_book_cover));
+            Picasso.get().load(new MediaSaver(this).getFile(book.getCoverImgPath())).into(imgCover);
+
         }
     }
 
@@ -109,14 +112,14 @@ public class BookDetailActivity extends AppCompatActivity {
             intent.putExtra(BooksActivity.SELECTED_BOOK_ID, bookId);
             startActivity(intent);
         } else if (item.getItemId() == R.id.remove_menu_item) {
-            bookStore.remove(bookId);
+            repository.remove(bookId);
             startActivity(new Intent(this, BooksActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }
 
     private void displayReadingStatus() {
-        ((TextView) findViewById(R.id.txt_book_status)).setText(book.getStatus());
+        ((TextView) findViewById(R.id.txt_book_status)).setText(book.getReadingStatus());
     }
 
     private void displayStartedTime() {

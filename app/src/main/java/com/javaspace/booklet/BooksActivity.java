@@ -19,11 +19,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 public class BooksActivity extends AppCompatActivity {
 
-    private final InMemoryBookStore bookStore = InMemoryBookStore.getInstance();
     public final static String SELECTED_BOOK_ID = "com.example.booklet.book_id";
 
     @Override
@@ -31,10 +32,13 @@ public class BooksActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_books);
 
+        Repository repository = new Repository(getApplication());
+        List<Book> books = repository.getAllBooks();
+
         RecyclerView listBooks = findViewById(R.id.list_books);
         View txtNoBooks = findViewById(R.id.txt_no_books);
 
-        if (bookStore.isEmpty()) {
+        if (books == null || books.isEmpty()) {
             txtNoBooks.setVisibility(View.VISIBLE);
             listBooks.setVisibility(View.GONE);
         } else {
@@ -42,14 +46,14 @@ public class BooksActivity extends AppCompatActivity {
             listBooks.setVisibility(View.VISIBLE);
 
             listBooks.setLayoutManager(new LinearLayoutManager(this, VERTICAL, false));
-            BookAdapter adapter = new BookAdapter(bookStore.getAddedBooks(), new OnItemClickListener() {
+            BookAdapter adapter = new BookAdapter(books, new OnItemClickListener() {
                 @Override
                 public void onClick(int bookId) {
                     Intent intent = new Intent(BooksActivity.this, BookDetailActivity.class);
                     intent.putExtra(SELECTED_BOOK_ID, bookId);
                     startActivity(intent);
                 }
-            });
+            }, new MediaSaver(this));
             listBooks.setAdapter(adapter);
         }
     }
@@ -77,10 +81,12 @@ public class BooksActivity extends AppCompatActivity {
 
         List<Book> books;
         OnItemClickListener listener;
+        MediaSaver mediaSaver;
 
-        public BookAdapter(List<Book> books, OnItemClickListener listener) {
+        public BookAdapter(List<Book> books, OnItemClickListener listener, MediaSaver mediaSaver) {
             this.books = books;
             this.listener = listener;
+            this.mediaSaver = mediaSaver;
         }
 
         @NonNull
@@ -95,7 +101,7 @@ public class BooksActivity extends AppCompatActivity {
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
             Book book = books.get(position);
             BookViewHolder vh = ((BookViewHolder) holder);
-            vh.bind(book);
+            vh.bind(book, mediaSaver);
             vh.itemView.setOnClickListener(v -> listener.onClick(book.getId()));
         }
 
@@ -113,11 +119,11 @@ public class BooksActivity extends AppCompatActivity {
             ImageView imgCover;
             View itemView;
 
-            public void bind(Book book) {
+            public void bind(Book book, MediaSaver mediaSaver) {
                 txtTitle.setText(book.getTitle());
                 txtAuthorEdition.setText(String.format("%s, %s", book.getAuthor(), book.getEdition()));
                 txtPublishedYear.setText(String.format("Published in %s", book.getYear()));
-                imgCover.setImageURI(Uri.parse(book.getCoverImgPath()));
+                Picasso.get().load(mediaSaver.getFile(book.getCoverImgPath())).into(imgCover);
                 txtProgress.setText(book.getProgress());
             }
 

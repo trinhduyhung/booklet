@@ -1,13 +1,17 @@
 package com.javaspace.booklet;
 
 import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 import java.util.Date;
 
+@Entity(tableName = "book")
 public class Book {
 
     // Reading, Never started, Paused, Finished
-    enum ReadingStatus {
+    public enum ReadingStatus {
         READING("I am reading"),
         NEVER_STARTED("I have not started yet"),
         PAUSING("I will be back soon"),
@@ -26,19 +30,38 @@ public class Book {
         }
     }
 
-    private static int count;
+    //private static int count;
+
+    @PrimaryKey(autoGenerate=true)
     private int id;
+
+    //@ColumnInfo
     private String title;
+
+    //@ColumnInfo
     private String edition;
+
+    //@ColumnInfo
     private String author;
+
+    //@ColumnInfo
     private int year;               // year of publication
+
+    //@ColumnInfo
     private int pages;              // number of pages
+
+    //@ColumnInfo
     private String coverImgPath;
+
+    //@ColumnInfo
     private String summary;
+
     private Date startedTime;       // started reading on this day
     private int pausedAtPage;       // paused at this page
     private Date pausedTime;        // when was the last pause
     private Date finishedTime;      // when did you finish
+    
+    
     private ReadingStatus status = ReadingStatus.NEVER_STARTED;
 
     /**
@@ -46,7 +69,7 @@ public class Book {
      * used
      */
     public void initializeId() {
-        id = count++;
+        //id = count++;
     }
 
     public int getId() {
@@ -73,6 +96,10 @@ public class Book {
         return pages;
     }
 
+    public int getPausedAtPage() {
+        return pausedAtPage;
+    }
+
     public String getCoverImgPath() {
         return coverImgPath;
     }
@@ -84,6 +111,14 @@ public class Book {
     public Date getPausedTime() {
         return pausedTime;
     }
+
+    public Date getFinishedTime() {
+        return finishedTime;
+    }
+
+   public ReadingStatus getStatus() {
+        return status;
+   }
 
     public void setId(int bookId) {
         this.id = bookId;
@@ -117,7 +152,27 @@ public class Book {
         this.summary = summary;
     }
 
-    public String getStatus() {
+    public void setStartedTime(Date startedTime) {
+        this.startedTime = startedTime;
+    }
+
+    public void setPausedAtPage(int pausedAtPage) {
+        this.pausedAtPage = pausedAtPage;
+    }
+
+    public void setPausedTime(Date pausedTime) {
+        this.pausedTime = pausedTime;
+    }
+
+    public void setFinishedTime(Date finishedTime) {
+        this.finishedTime = finishedTime;
+    }
+
+    public void setStatus(ReadingStatus status) {
+        this.status = status;
+    }
+
+    public String getReadingStatus() {
         return status.toString();
     }
 

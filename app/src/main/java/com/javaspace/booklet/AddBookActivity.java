@@ -2,33 +2,49 @@ package com.javaspace.booklet;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.UiThread;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
+
+import java.io.IOException;
 
 public class AddBookActivity extends AppCompatActivity {
 
+    private static final String TAG = "AddBookActivity";
+
     public static final int PICK_IMAGE = 1;
     public static final String IMAGE_COVER_KEY = "IMAGE_COVER_KEY";
-    private final BookStore bookStore = InMemoryBookStore.getInstance();
-    private Uri coverImage = null;
+    private Repository repository;
+    private Uri coverImageUri = null;
     private ImageView imgCover;
+    private MediaSaver mediaSaver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_book);
+
+        repository = new Repository(getApplication());
+
         imgCover = findViewById(R.id.img_cover);
 
         if (savedInstanceState != null) {
             String cover = savedInstanceState.getString(IMAGE_COVER_KEY);
-            coverImage = Uri.parse(cover);
-            imgCover.setImageURI(coverImage);
+            coverImageUri = Uri.parse(cover);
+            imgCover.setImageURI(coverImageUri);
         }
 
         EditText title = findViewById(R.id.edt_title);
@@ -45,17 +61,18 @@ public class AddBookActivity extends AppCompatActivity {
 
             if (shouldAddBook(title, edition, author, year, pages, summary)) {
                 Book book = new Book();
-                book.initializeId();
                 book.setTitle(title.getText().toString());
                 book.setEdition(edition.getText().toString());
                 book.setAuthor(author.getText().toString());
                 book.setYear(Integer.parseInt(year.getText().toString()));
                 book.setPages(Integer.parseInt(pages.getText().toString()));
-                book.setCoverImgPath(coverImage.toString());
+                book.setCoverImgPath(mediaSaver.getFileName());
                 book.setSummary(summary.getText().toString());
-                bookStore.addBook(book);
+                repository.addBook(book);
 
-                startActivity(new Intent(this, BooksActivity.class));
+                Intent intent = new Intent(this, BooksActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
             }
 
         });
@@ -83,7 +100,7 @@ public class AddBookActivity extends AppCompatActivity {
         } else if (summary.getText().toString().isEmpty()) {
             shouldAddBook = false;
             summary.setError(getString(R.string.summary_not_empty));
-        } else if (coverImage == null) {
+        } else if (coverImageUri == null) {
             shouldAddBook = false;
             Toast.makeText(this, getText(R.string.cover_not_empty), Toast.LENGTH_SHORT).show();
         }
@@ -101,16 +118,38 @@ public class AddBookActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE && resultCode == Activity.RESULT_OK) {
-            coverImage = data.getData();
-            imgCover.setImageURI(coverImage);
+            getBitmapFromUri(data.getData());
         }
+    }
+
+    private void getBitmapFromUri(Uri uri) {
+        Picasso.get().load(uri).into(new Target() {
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                mediaSaver = new MediaSaver(AddBookActivity.this);
+                if (mediaSaver.saveImageFromBitmap(bitmap)) {
+                    coverImageUri = uri;
+                    imgCover.setImageURI(coverImageUri);
+                }
+            }
+
+            @Override
+            public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+                Log.e(TAG, "onBitmapFailed: ", e);
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+                Log.e(TAG, "onPrepareLoad");
+            }
+        });
     }
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        if (coverImage != null) {
-            outState.putString(IMAGE_COVER_KEY, coverImage.toString());
+        if (coverImageUri != null) {
+            outState.putString(IMAGE_COVER_KEY, coverImageUri.toString());
         }
     }
 }
