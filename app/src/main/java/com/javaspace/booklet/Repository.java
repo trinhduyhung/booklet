@@ -28,7 +28,11 @@ public class Repository {
     }
 
     public void remove(int bookId) {
-        bookStore.remove(bookId);
+        try {
+            new RemoveBookAsyncTask(bookStore).execute(bookId).get();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void editBook(Book book) {
@@ -70,5 +74,21 @@ public class Repository {
         protected Book doInBackground(Integer... integers) {
             return dao.getBookById(integers[0]);
         }
+    }
+
+    private static class RemoveBookAsyncTask extends AsyncTask<Integer, Void, Void> {
+
+        private BookDao dao;
+
+        public RemoveBookAsyncTask(BookDao dao) {
+            this.dao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(Integer... integers) {
+            dao.remove(integers[0]);
+            return null;
+        }
+
     }
 }

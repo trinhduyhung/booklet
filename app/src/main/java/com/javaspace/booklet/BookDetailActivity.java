@@ -113,7 +113,10 @@ public class BookDetailActivity extends AppCompatActivity {
             startActivity(intent);
         } else if (item.getItemId() == R.id.remove_menu_item) {
             repository.remove(bookId);
-            startActivity(new Intent(this, BooksActivity.class));
+
+            Intent intent = new Intent(this, BooksActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }
