@@ -35,33 +35,37 @@ public class Book {
     @PrimaryKey(autoGenerate=true)
     private int id;
 
-    //@ColumnInfo
     private String title;
-
-    //@ColumnInfo
+    
     private String edition;
 
-    //@ColumnInfo
     private String author;
 
-    //@ColumnInfo
-    private int year;               // year of publication
+    @ColumnInfo(name = "published_time")
+    private String publishedTime;
 
-    //@ColumnInfo
     private int pages;              // number of pages
 
-    //@ColumnInfo
+    @ColumnInfo(name = "cover_img_path")
     private String coverImgPath;
-
-    //@ColumnInfo
+    
     private String summary;
 
+    @ColumnInfo(name = "started_time")
     private Date startedTime;       // started reading on this day
-    private int pausedAtPage;       // paused at this page
+
+    @ColumnInfo(name = "spent_time")
+    private long spentTime;
+
+    @ColumnInfo(name = "current_page")
+    private int currentPage;       // paused at this page
+
+    @ColumnInfo(name = "paused_time")
     private Date pausedTime;        // when was the last pause
+
+    @ColumnInfo(name = "finished_time")
     private Date finishedTime;      // when did you finish
-    
-    
+
     private ReadingStatus status = ReadingStatus.NEVER_STARTED;
 
     /**
@@ -88,16 +92,16 @@ public class Book {
         return author;
     }
 
-    public int getYear() {
-        return year;
+    public String getPublishedTime() {
+        return publishedTime;
     }
 
     public int getPages() {
         return pages;
     }
 
-    public int getPausedAtPage() {
-        return pausedAtPage;
+    public int getCurrentPage() {
+        return currentPage;
     }
 
     public String getCoverImgPath() {
@@ -136,8 +140,8 @@ public class Book {
         this.author = author;
     }
 
-    public void setYear(int year) {
-        this.year = year;
+    public void setPublishedTime(String publishedTime) {
+        this.publishedTime = publishedTime;
     }
 
     public void setCoverImgPath(String coverImgPath) {
@@ -156,8 +160,8 @@ public class Book {
         this.startedTime = startedTime;
     }
 
-    public void setPausedAtPage(int pausedAtPage) {
-        this.pausedAtPage = pausedAtPage;
+    public void setCurrentPage(int currentPage) {
+        this.currentPage = currentPage;
     }
 
     public void setPausedTime(Date pausedTime) {
@@ -174,6 +178,21 @@ public class Book {
 
     public String getReadingStatus() {
         return status.toString();
+    }
+
+    public long getSpentTime() {
+        return spentTime;
+    }
+
+    public long getRealSpentTime() {
+        if (isReading() && spentTime == 0) {
+
+        }
+        return 0;
+    }
+
+    public void setSpentTime(long spentTime) {
+        this.spentTime = spentTime;
     }
 
     public void startReading() {
@@ -212,7 +231,7 @@ public class Book {
     }
 
     public String getProgress() {
-        return String.format("%s. (%s/%s)", status.toString(), pausedAtPage, pages);
+        return String.format("%s. (%s/%s)", status.toString(), currentPage, pages);
     }
 
     public void copy(Book book) {
@@ -220,7 +239,7 @@ public class Book {
         this.author = book.getAuthor();
         this.edition = book.getEdition();
         this.pages = book.getPages();
-        this.year = book.getYear();
+        this.publishedTime = book.getPublishedTime();
         this.summary = book.getSummary();
         this.coverImgPath = book.getCoverImgPath();
     }
@@ -232,7 +251,7 @@ public class Book {
                 ", title='" + title + '\'' +
                 ", edition=" + edition +
                 ", author='" + author + '\'' +
-                ", year=" + year +
+                ", year=" + publishedTime +
                 ", coverImgPath='" + coverImgPath + '\'' +
                 '}';
     }

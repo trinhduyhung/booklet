@@ -64,7 +64,7 @@ public class EditBookActivity extends AppCompatActivity {
                 book.setTitle(title.getText().toString());
                 book.setEdition(edition.getText().toString());
                 book.setAuthor(author.getText().toString());
-                book.setYear(Integer.parseInt(year.getText().toString()));
+                book.setPublishedTime(year.getText().toString());
                 book.setPages(Integer.parseInt(pages.getText().toString()));
                 book.setCoverImgPath(coverImage.toString());
                 book.setSummary(summary.getText().toString());
@@ -82,7 +82,7 @@ public class EditBookActivity extends AppCompatActivity {
         title.setText(book.getTitle());
         edition.setText(book.getEdition());
         author.setText(book.getAuthor());
-        year.setText(String.valueOf(book.getYear()));
+        year.setText(String.valueOf(book.getPublishedTime()));
         pages.setText(String.valueOf(book.getPages()));
         summary.setText(book.getSummary());
         coverImage = Uri.parse(book.getCoverImgPath());

@@ -21,4 +21,24 @@
     <string name="add">Add</string>
     <string name="edit">Edit</string>
     <string name="remove">Remove</string>
+    <string name="pause">Pause</string>
+    <string name="summary_example">Spring in Action, Sixth Edition guides you through Spring’s core features explained in Craig Walls’ famously clear style. You’ll roll up your sleeves and build a secure database-backed web app step by step. Along the way, you’ll explore reactive programming, microservices, service discovery, RESTful APIs, deployment, and expert best practices.</string>
+    <string name="page_example">520</string>
+    <string name="paperback">Paperback (pages)</string>
+    <string name="published_date_example">February 8, 2022</string>
+    <string name="author_example">Craig Walls</string>
+    <string name="edition_example">Sixth Edition</string>
+    <string name="title">Title</string>
+    <string name="title_example">Spring in Action</string>
+    <string name="enter_your_book_title">Enter your book title</string>
+    <string name="edition">Edition</string>
+    <string name="enter_your_book_edition">Enter your book edition</string>
+    <string name="author">Author</string>
+    <string name="enter_your_book_author">Enter your book author</string>
+    <string name="published_time">Published time</string>
+    <string name="enter_your_book_published_year">Enter your book published year</string>
+    <string name="enter_your_book_s_pages">Enter your book\'s pages</string>
+    <string name="summary">Summary</string>
+    <string name="cover">Cover</string>
+    <string name="add_book">Add book</string>
 </resources>

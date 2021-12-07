@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -123,7 +122,7 @@ public class BooksActivity extends AppCompatActivity {
             public void bind(Book book, MediaSaver mediaSaver) {
                 txtTitle.setText(book.getTitle());
                 txtAuthorEdition.setText(String.format("%s, %s", book.getAuthor(), book.getEdition()));
-                txtPublishedYear.setText(String.format("Published in %s", book.getYear()));
+                txtPublishedYear.setText(String.format("Published in %s", book.getPublishedTime()));
                 Picasso.get().load(mediaSaver.getFile(book.getCoverImgPath())).into(imgCover);
                 txtProgress.setText(book.getProgress());
             }

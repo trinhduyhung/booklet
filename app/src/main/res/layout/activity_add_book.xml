@@ -15,7 +15,7 @@
         <TextView
             android:id="@+id/textView"
             android:layout_marginTop="0dp"
-            android:text="Title"
+            android:text="@string/title"
             style="@style/BookInfoLabel"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -25,16 +25,16 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Enter your book title"
+            android:hint="@string/enter_your_book_title"
             android:inputType="textPersonName"
-            android:text="Spring in Action"
+            android:text="@string/title_example"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
 
         <TextView
             android:id="@+id/txt_edition"
-            android:text="Edition"
+            android:text="@string/edition"
             style="@style/BookInfoLabel"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edt_title" />
@@ -44,16 +44,16 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Enter your book edition"
+            android:hint="@string/enter_your_book_edition"
             android:inputType="text"
-            android:text="Fifth Edition"
+            android:text="@string/edition_example"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_edition" />
 
         <TextView
             android:id="@+id/txt_author"
-            android:text="Author"
+            android:text="@string/author"
             style="@style/BookInfoLabel"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edt_edition" />
@@ -63,16 +63,16 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Enter your book author"
+            android:hint="@string/enter_your_book_author"
             android:inputType="textPersonName"
-            android:text="Craig Walls"
+            android:text="@string/author_example"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_author" />
 
         <TextView
             android:id="@+id/textView4"
-            android:text="Published year"
+            android:text="@string/published_time"
             style="@style/BookInfoLabel"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edt_author" />
@@ -82,16 +82,16 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Enter your book published year"
-            android:inputType="number"
-            android:text="2022"
+            android:hint="@string/enter_your_book_published_year"
+            android:inputType="text"
+            android:text="@string/published_date_example"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
         <TextView
             android:id="@+id/txt_page"
-            android:text="Pages"
+            android:text="@string/paperback"
             style="@style/BookInfoLabel"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edt_published_year" />
@@ -102,16 +102,16 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:ems="10"
-            android:hint="Enter your book's pages"
+            android:hint="@string/enter_your_book_s_pages"
             android:inputType="number"
-            android:text="600"
+            android:text="@string/page_example"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_page" />
 
         <TextView
             android:id="@+id/txt_summary"
-            android:text="Summary"
+            android:text="@string/summary"
             style="@style/BookInfoLabel"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edt_pages" />
@@ -123,14 +123,14 @@
             android:ems="10"
             android:inputType="textMultiLine"
             android:lines="8"
-            android:text="Spring in Action, 5th Edition is the fully updated revision of Manning's bestselling Spring in Action. This new edition includes all Spring 5.0 updates, along with new examples on reactive programming, Spring WebFlux, and microservices. You'll also find the latest Spring best practices, including Spring Boot for application setup and configuration."
+            android:text="@string/summary_example"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_summary"/>
 
         <TextView
             android:id="@+id/text_cover"
             style="@style/BookInfoLabel"
-            android:text="Cover"
+            android:text="@string/cover"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edt_summary" />
 
@@ -150,7 +150,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="24dp"
-            android:text="Add book"
+            android:text="@string/add_book"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/img_cover" />

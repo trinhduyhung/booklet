@@ -6,20 +6,16 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.UiThread;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
-
-import java.io.IOException;
 
 public class AddBookActivity extends AppCompatActivity {
 
@@ -64,7 +60,7 @@ public class AddBookActivity extends AppCompatActivity {
                 book.setTitle(title.getText().toString());
                 book.setEdition(edition.getText().toString());
                 book.setAuthor(author.getText().toString());
-                book.setYear(Integer.parseInt(year.getText().toString()));
+                book.setPublishedTime(year.getText().toString());
                 book.setPages(Integer.parseInt(pages.getText().toString()));
                 book.setCoverImgPath(mediaSaver.getFileName());
                 book.setSummary(summary.getText().toString());

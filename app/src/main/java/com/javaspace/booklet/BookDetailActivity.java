@@ -1,7 +1,6 @@
 package com.javaspace.booklet;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -50,7 +49,7 @@ public class BookDetailActivity extends AppCompatActivity {
                     setText(String.format("%s pages long", book.getPages()));
 
             ((TextView) findViewById(R.id.txt_book_published_year)).
-                    setText(String.format("Published in %s", book.getYear()));
+                    setText(String.format("Published in %s", book.getPublishedTime()));
             ((TextView) findViewById(R.id.txt_book_summary)).setText(book.getSummary());
 
             displayReadingStatus();
@@ -67,6 +66,8 @@ public class BookDetailActivity extends AppCompatActivity {
 
             ImageView imgCover = ((ImageView) findViewById(R.id.img_book_cover));
             Picasso.get().load(new MediaSaver(this).getFile(book.getCoverImgPath())).into(imgCover);
+
+
 
         }
     }
@@ -93,20 +94,11 @@ public class BookDetailActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.start_reading_menu_item) {
-            book.startReading();
-            invalidateOptionsMenu();
-            displayReadingStatus();
-            displayStartedTime();
+            onStartReadingMenuItemClicked();
         } else if (item.getItemId() == R.id.pause_reading_menu_item) {
-            book.pauseReading();
-            startTracking();
-            invalidateOptionsMenu();
-            displayReadingStatus();
+            onPauseReadingMenuItemClicked();
         } else if (item.getItemId() == R.id.finish_reading_menu_item) {
-            book.finishReading();
-            invalidateOptionsMenu();
-            displayReadingStatus();
-            displayFinishedTime();
+            onFinishReadingMenuItemClicked();
         } else if (item.getItemId() == R.id.edit_menu_item) {
             Intent intent = new Intent(BookDetailActivity.this, EditBookActivity.class);
             intent.putExtra(BooksActivity.SELECTED_BOOK_ID, bookId);
@@ -119,6 +111,69 @@ public class BookDetailActivity extends AppCompatActivity {
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private static class Stopwatch {
+
+        private long startTime = 0;
+        private long stopTime = 0;
+        private boolean running = false;
+
+        public void start() {
+            this.startTime = System.currentTimeMillis();
+            this.running = true;
+        }
+
+        public void stop() {
+            this.stopTime = System.currentTimeMillis();
+            this.running = false;
+        }
+
+        // elapsed time in milliseconds
+        public long getElapsedTime() {
+            if (running) {
+                return System.currentTimeMillis() - startTime;
+            }
+            return stopTime - startTime;
+        }
+
+        // elapsed time in seconds
+        public long getElapsedTimeSecs() {
+            if (running) {
+                return ((System.currentTimeMillis() - startTime) / 1000);
+            }
+            return ((stopTime - startTime) / 1000);
+        }
+    }
+
+    private Stopwatch stopwatch;
+
+    private void onStartReadingMenuItemClicked() {
+        book.startReading();
+        invalidateOptionsMenu();
+        displayReadingStatus();
+        displayStartedTime();
+        stopwatch.start();
+    }
+
+    private void onPauseReadingMenuItemClicked() {
+        book.pauseReading();
+        startTracking();
+        invalidateOptionsMenu();
+        displayReadingStatus();
+        stopwatch.stop();
+        book.setSpentTime(stopwatch.getElapsedTime() + book.getSpentTime());
+    }
+
+    private void onFinishReadingMenuItemClicked() {
+        book.finishReading();
+        invalidateOptionsMenu();
+        displayReadingStatus();
+        displayFinishedTime();
+        if (stopwatch.running) {
+            stopwatch.stop();
+            book.setSpentTime(stopwatch.getElapsedTime() + book.getSpentTime());
+        }
     }
 
     private void displayReadingStatus() {
