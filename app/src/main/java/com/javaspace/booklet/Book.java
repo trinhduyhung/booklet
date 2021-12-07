@@ -12,10 +12,10 @@ public class Book {
 
     // Reading, Never started, Paused, Finished
     public enum ReadingStatus {
-        READING("I am reading"),
-        NEVER_STARTED("I have not started yet"),
-        PAUSING("I will be back soon"),
-        FINISHED("I have finished");
+        READING("Reading"),
+        NEVER_STARTED("Added"),
+        PAUSING("Pausing"),
+        FINISHED("Finished");
 
         String status;
 
@@ -40,6 +40,8 @@ public class Book {
     private String edition;
 
     private String author;
+
+    private String publisher;
 
     @ColumnInfo(name = "published_time")
     private String publishedTime;
@@ -80,119 +82,124 @@ public class Book {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getTitle() {
         return title;
-    }
-
-    public String getEdition() {
-        return edition;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public String getPublishedTime() {
-        return publishedTime;
-    }
-
-    public int getPages() {
-        return pages;
-    }
-
-    public int getCurrentPage() {
-        return currentPage;
-    }
-
-    public String getCoverImgPath() {
-        return coverImgPath;
-    }
-
-    public String getSummary() {
-        return summary;
-    }
-
-    public Date getPausedTime() {
-        return pausedTime;
-    }
-
-    public Date getFinishedTime() {
-        return finishedTime;
-    }
-
-   public ReadingStatus getStatus() {
-        return status;
-   }
-
-    public void setId(int bookId) {
-        this.id = bookId;
     }
 
     public void setTitle(String title) {
         this.title = title;
     }
 
+    public String getEdition() {
+        return edition;
+    }
+
     public void setEdition(String edition) {
         this.edition = edition;
+    }
+
+    public String getAuthor() {
+        return author;
     }
 
     public void setAuthor(String author) {
         this.author = author;
     }
 
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
+    public String getPublishedTime() {
+        return publishedTime;
+    }
+
     public void setPublishedTime(String publishedTime) {
         this.publishedTime = publishedTime;
     }
 
-    public void setCoverImgPath(String coverImgPath) {
-        this.coverImgPath = coverImgPath;
+    public int getPages() {
+        return pages;
     }
 
     public void setPages(int pages) {
         this.pages = pages;
     }
 
+    public String getCoverImgPath() {
+        return coverImgPath;
+    }
+
+    public void setCoverImgPath(String coverImgPath) {
+        this.coverImgPath = coverImgPath;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
     public void setSummary(String summary) {
         this.summary = summary;
+    }
+
+    public Date getStartedTime() {
+        return startedTime;
     }
 
     public void setStartedTime(Date startedTime) {
         this.startedTime = startedTime;
     }
 
+    public long getSpentTime() {
+        return spentTime;
+    }
+
+    public int getCurrentPage() {
+        return currentPage;
+    }
+
     public void setCurrentPage(int currentPage) {
         this.currentPage = currentPage;
+    }
+
+    public Date getPausedTime() {
+        return pausedTime;
     }
 
     public void setPausedTime(Date pausedTime) {
         this.pausedTime = pausedTime;
     }
 
+    public Date getFinishedTime() {
+        return finishedTime;
+    }
+
     public void setFinishedTime(Date finishedTime) {
         this.finishedTime = finishedTime;
+    }
+
+    public ReadingStatus getStatus() {
+        return status;
     }
 
     public void setStatus(ReadingStatus status) {
         this.status = status;
     }
 
-    public String getReadingStatus() {
-        return status.toString();
-    }
-
-    public long getSpentTime() {
-        return spentTime;
-    }
-
-    public long getRealSpentTime() {
-        if (isReading() && spentTime == 0) {
-
-        }
-        return 0;
-    }
-
     public void setSpentTime(long spentTime) {
         this.spentTime = spentTime;
+    }
+
+    public String getReadingStatus() {
+        return status.toString();
     }
 
     public void startReading() {
@@ -226,12 +233,8 @@ public class Book {
         return status == ReadingStatus.NEVER_STARTED;
     }
 
-    public Date getStartedTime() {
-        return startedTime;
-    }
-
     public String getProgress() {
-        return String.format("%s. (%s/%s)", status.toString(), currentPage, pages);
+        return String.format("%s (%s/%s)", status.toString(), currentPage, pages);
     }
 
     public void copy(Book book) {

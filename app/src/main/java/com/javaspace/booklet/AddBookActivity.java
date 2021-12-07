@@ -46,7 +46,8 @@ public class AddBookActivity extends AppCompatActivity {
         EditText title = findViewById(R.id.edt_title);
         EditText edition = findViewById(R.id.edt_edition);
         EditText author = findViewById(R.id.edt_author);
-        EditText year = findViewById(R.id.edt_published_year);
+        EditText publisher = findViewById(R.id.edt_publisher);
+        EditText published = findViewById(R.id.edt_published_year);
         EditText pages = findViewById(R.id.edt_pages);
         EditText summary = findViewById(R.id.edt_summary);
 
@@ -55,12 +56,13 @@ public class AddBookActivity extends AppCompatActivity {
 
         findViewById(R.id.btn_add_book).setOnClickListener(v -> {
 
-            if (shouldAddBook(title, edition, author, year, pages, summary)) {
+            if (shouldAddBook(title, edition, author, publisher, published, pages, summary)) {
                 Book book = new Book();
                 book.setTitle(title.getText().toString());
                 book.setEdition(edition.getText().toString());
                 book.setAuthor(author.getText().toString());
-                book.setPublishedTime(year.getText().toString());
+                book.setPublisher(publisher.getText().toString());
+                book.setPublishedTime(published.getText().toString());
                 book.setPages(Integer.parseInt(pages.getText().toString()));
                 book.setCoverImgPath(mediaSaver.getFileName());
                 book.setSummary(summary.getText().toString());
@@ -75,8 +77,8 @@ public class AddBookActivity extends AppCompatActivity {
 
     }
     
-    private boolean shouldAddBook(EditText title, EditText edition, EditText author, EditText year,
-                                  EditText pages, EditText summary) {
+    private boolean shouldAddBook(EditText title, EditText edition, EditText author, EditText publisher,
+                                  EditText published, EditText pages, EditText summary) {
         boolean shouldAddBook = true;
         if (title.getText().toString().isEmpty()) {
             shouldAddBook = false;
@@ -87,9 +89,12 @@ public class AddBookActivity extends AppCompatActivity {
         } else if (author.getText().toString().isEmpty()) {
             shouldAddBook = false;
             author.setError(getString(R.string.author_not_empty));
-        } else if (year.getText().toString().isEmpty()) {
+        } else if (publisher.getText().toString().isEmpty()) {
             shouldAddBook = false;
-            year.setError(getString(R.string.year_not_empty));
+            author.setError(getString(R.string.publisher_not_empty));
+        } else if (published.getText().toString().isEmpty()) {
+            shouldAddBook = false;
+            published.setError(getString(R.string.year_not_empty));
         } else if (pages.getText().toString().isEmpty()) {
             shouldAddBook = false;
             pages.setError(getString(R.string.page_not_empty));

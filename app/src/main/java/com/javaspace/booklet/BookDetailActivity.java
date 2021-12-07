@@ -45,11 +45,12 @@ public class BookDetailActivity extends AppCompatActivity {
             ((TextView) findViewById(R.id.txt_book_title)).setText(book.getTitle());
             ((TextView) findViewById(R.id.txt_book_author_edition)).
                     setText(String.format("%s, %s", book.getAuthor(), book.getEdition()));
+            ((TextView) findViewById(R.id.txt_book_publisher)).
+                    setText(String.format("Publisher: %s", book.getPublisher()));
+            ((TextView) findViewById(R.id.txt_book_published_year)).
+                    setText(String.format("Published: %s", book.getPublishedTime()));
             ((TextView) findViewById(R.id.txt_book_pages)).
                     setText(String.format("%s pages long", book.getPages()));
-
-            ((TextView) findViewById(R.id.txt_book_published_year)).
-                    setText(String.format("Published in %s", book.getPublishedTime()));
             ((TextView) findViewById(R.id.txt_book_summary)).setText(book.getSummary());
 
             displayReadingStatus();
@@ -65,9 +66,9 @@ public class BookDetailActivity extends AppCompatActivity {
             }
 
             ImageView imgCover = ((ImageView) findViewById(R.id.img_book_cover));
-            Picasso.get().load(new MediaSaver(this).getFile(book.getCoverImgPath())).into(imgCover);
-
-
+            Picasso.get().load(new MediaSaver(this).getFile(book.getCoverImgPath()))
+                    .placeholder(R.drawable.not_yet_available)
+                    .into(imgCover);
 
         }
     }

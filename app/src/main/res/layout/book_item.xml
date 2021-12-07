@@ -9,11 +9,11 @@
 
     <ImageView
         android:id="@+id/img_item_cover"
-        android:layout_width="wrap_content"
+        android:layout_width="160dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:scaleType="centerCrop"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@drawable/spring_in_action" />
 
     <TextView
         android:id="@+id/txt_item_title"
@@ -33,27 +33,37 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
         android:layout_toEndOf="@id/img_item_cover"
-        tools:text="Craig Walls, Fifth Edition" />
+        tools:text="Craig Walls, Sixth Edition" />
 
     <TextView
-        android:id="@+id/txt_item_published_year"
+        android:id="@+id/txt_item_publisher"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/txt_item_author_edition"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
         android:layout_toEndOf="@id/img_item_cover"
-        tools:text="2018" />
+        tools:text="Publisher Manning" />
+
+    <TextView
+        android:id="@+id/txt_item_published_year"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txt_item_publisher"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_toEndOf="@id/img_item_cover"
+        tools:text="Published: 2018" />
 
     <TextView
         android:id="@+id/txt_item_progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_toEndOf="@id/img_item_cover"
+        android:layout_below="@id/txt_item_published_year"
         android:textAllCaps="true"
         android:textColor="?attr/colorPrimary"
         android:textStyle="bold"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="16dp"
-        android:layout_toEndOf="@id/img_item_cover"
-        tools:text="0/600" />
+        tools:text="READING" />
 </RelativeLayout>

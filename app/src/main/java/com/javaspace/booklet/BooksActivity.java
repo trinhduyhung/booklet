@@ -114,6 +114,7 @@ public class BooksActivity extends AppCompatActivity {
 
             TextView txtTitle;
             TextView txtAuthorEdition;
+            TextView txtPublisher;
             TextView txtPublishedYear;
             TextView txtProgress;
             ImageView imgCover;
@@ -122,7 +123,8 @@ public class BooksActivity extends AppCompatActivity {
             public void bind(Book book, MediaSaver mediaSaver) {
                 txtTitle.setText(book.getTitle());
                 txtAuthorEdition.setText(String.format("%s, %s", book.getAuthor(), book.getEdition()));
-                txtPublishedYear.setText(String.format("Published in %s", book.getPublishedTime()));
+                txtPublisher.setText(String.format("Publisher: %s", book.getPublisher()));
+                txtPublishedYear.setText(String.format("Published: %s", book.getPublishedTime()));
                 Picasso.get().load(mediaSaver.getFile(book.getCoverImgPath())).into(imgCover);
                 txtProgress.setText(book.getProgress());
             }
@@ -132,6 +134,7 @@ public class BooksActivity extends AppCompatActivity {
                 this.itemView = itemView;
                 txtTitle = itemView.findViewById(R.id.txt_item_title);
                 txtAuthorEdition = itemView.findViewById(R.id.txt_item_author_edition);
+                txtPublisher = itemView.findViewById(R.id.txt_item_publisher);
                 txtPublishedYear = itemView.findViewById(R.id.txt_item_published_year);
                 txtProgress = itemView.findViewById(R.id.txt_item_progress);
                 imgCover = itemView.findViewById(R.id.img_item_cover);

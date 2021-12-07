@@ -8,6 +8,7 @@
 
     <string name="title_not_empty">Title cannot be empty</string>
     <string name="author_not_empty">Author cannot be empty</string>
+    <string name="publisher_not_empty">Publisher cannot be empty</string>
     <string name="edition_not_empty">Edition cannot be empty</string>
     <string name="year_not_empty">Published year cannot be empty</string>
     <string name="page_not_empty">Pages cannot be empty</string>
@@ -41,4 +42,7 @@
     <string name="summary">Summary</string>
     <string name="cover">Cover</string>
     <string name="add_book">Add book</string>
+    <string name="publisher">Publisher</string>
+    <string name="enter_your_book_publisher">Enter your book\'s publisher</string>
+    <string name="publisher_example">Manning</string>
 </resources>
