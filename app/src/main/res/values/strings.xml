@@ -45,4 +45,5 @@
     <string name="publisher">Publisher</string>
     <string name="enter_your_book_publisher">Enter your book\'s publisher</string>
     <string name="publisher_example">Manning</string>
+    <string name="update_book">Update book</string>
 </resources>

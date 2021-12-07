@@ -24,8 +24,6 @@ import java.util.List;
 
 public class BooksActivity extends AppCompatActivity {
 
-    public final static String SELECTED_BOOK_ID = "com.example.booklet.book_id";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,9 +47,7 @@ public class BooksActivity extends AppCompatActivity {
             BookAdapter adapter = new BookAdapter(books, new OnItemClickListener() {
                 @Override
                 public void onClick(int bookId) {
-                    Intent intent = new Intent(BooksActivity.this, BookDetailActivity.class);
-                    intent.putExtra(SELECTED_BOOK_ID, bookId);
-                    startActivity(intent);
+                    startActivity(BookDetailActivity.newIntent(BooksActivity.this, bookId));
                 }
             }, new MediaSaver(this));
             listBooks.setAdapter(adapter);

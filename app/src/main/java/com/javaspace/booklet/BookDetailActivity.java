@@ -1,5 +1,6 @@
 package com.javaspace.booklet;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -27,13 +28,20 @@ public class BookDetailActivity extends AppCompatActivity {
     private Book book;
     private int bookId;
     private Repository repository;
+    public final static String SELECTED_BOOK_ID = "com.example.booklet.book_id";
+
+    public static Intent newIntent(Context context, int bookId) {
+        Intent intent = new Intent(context, BookDetailActivity.class);
+        intent.putExtra(SELECTED_BOOK_ID, bookId);
+        return intent;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_detail);
 
-        bookId = getIntent().getIntExtra(BooksActivity.SELECTED_BOOK_ID, -1);
+        bookId = getIntent().getIntExtra(SELECTED_BOOK_ID, -1);
         repository = new Repository(getApplication());
 
         book = repository.getBookById(bookId);
@@ -102,7 +110,7 @@ public class BookDetailActivity extends AppCompatActivity {
             onFinishReadingMenuItemClicked();
         } else if (item.getItemId() == R.id.edit_menu_item) {
             Intent intent = new Intent(BookDetailActivity.this, EditBookActivity.class);
-            intent.putExtra(BooksActivity.SELECTED_BOOK_ID, bookId);
+            intent.putExtra(SELECTED_BOOK_ID, bookId);
             startActivity(intent);
         } else if (item.getItemId() == R.id.remove_menu_item) {
             repository.remove(bookId);
@@ -154,7 +162,9 @@ public class BookDetailActivity extends AppCompatActivity {
         invalidateOptionsMenu();
         displayReadingStatus();
         displayStartedTime();
-        stopwatch.start();
+        //stopwatch.start();
+        NotificationUtil.showReadingNotification(this.getApplicationContext(),
+                bookId, book.getTitle(), "1:18:20", book.getCoverImgPath());
     }
 
     private void onPauseReadingMenuItemClicked() {
@@ -162,8 +172,8 @@ public class BookDetailActivity extends AppCompatActivity {
         startTracking();
         invalidateOptionsMenu();
         displayReadingStatus();
-        stopwatch.stop();
-        book.setSpentTime(stopwatch.getElapsedTime() + book.getSpentTime());
+        //stopwatch.stop();
+        //book.setSpentTime(stopwatch.getElapsedTime() + book.getSpentTime());
     }
 
     private void onFinishReadingMenuItemClicked() {
@@ -171,10 +181,10 @@ public class BookDetailActivity extends AppCompatActivity {
         invalidateOptionsMenu();
         displayReadingStatus();
         displayFinishedTime();
-        if (stopwatch.running) {
-            stopwatch.stop();
-            book.setSpentTime(stopwatch.getElapsedTime() + book.getSpentTime());
-        }
+//        if (stopwatch.running) {
+//            stopwatch.stop();
+//            book.setSpentTime(stopwatch.getElapsedTime() + book.getSpentTime());
+//        }
     }
 
     private void displayReadingStatus() {

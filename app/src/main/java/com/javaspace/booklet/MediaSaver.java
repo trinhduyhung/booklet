@@ -35,13 +35,14 @@ public class MediaSaver {
     private String fileName;
     private final Context context;
     private final String directoryName = "cover_images";
+    private boolean saved;
 
 
     public MediaSaver(Context context) {
         this.context = context;
     }
 
-    public String getFileName() {
+    public String getSavedImageFileName() {
         return fileName;
     }
 
@@ -144,6 +145,7 @@ public class MediaSaver {
                 e.printStackTrace();
             }
         }
+        saved = true;
         return true;
     }
 
@@ -182,6 +184,10 @@ public class MediaSaver {
         String name = new SimpleDateFormat("yyyyMMdd_HHmmss.SSS", Locale.getDefault())
                 .format(Calendar.getInstance().getTime());
         return name.concat(".png");
+    }
+
+    public boolean isSaved() {
+        return saved;
     }
 
 }
